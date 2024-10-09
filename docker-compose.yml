@@ -12,15 +12,13 @@ services:
     volumes:
       - .:/app
     command: ["python", "/app/app.py"]
-
-
+  
   ngrok:
-      image: wernight/ngrok:latest
-      entrypoint: ngrok http app:5000
-      env_file:
-        - .env
-      environment:
-        - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
-      ports:
-        - 4040:4040
-
+    image: ngrok/ngrok:latest
+    entrypoint: ngrok http app:5000 --host-header=app:5000 --url=${NGROK_SUBDOMAIN}
+    env_file:
+      - .env
+    environment:
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    ports:
+      - 4040:4040
