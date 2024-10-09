@@ -1,0 +1,7 @@
+Flask
+starkbank
+python-dotenv
+APScheduler
+pytest
+pytest-env
+coverage

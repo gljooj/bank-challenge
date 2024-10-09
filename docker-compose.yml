@@ -1,0 +1,26 @@
+version: '3.8'
+
+services:
+  app:
+    build: .
+    ports:
+      - "5000:5000"
+    environment:
+      - FLASK_ENV=development
+    env_file:
+      - .env
+    volumes:
+      - .:/app
+    command: ["python", "/app/app.py"]
+
+
+  ngrok:
+      image: wernight/ngrok:latest
+      entrypoint: ngrok http app:5000
+      env_file:
+        - .env
+      environment:
+        - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+      ports:
+        - 4040:4040
+
